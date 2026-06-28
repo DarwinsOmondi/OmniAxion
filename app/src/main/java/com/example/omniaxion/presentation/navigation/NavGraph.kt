@@ -55,13 +55,22 @@ fun NavGraph(
             TimelineScreen(
                 title = selectedArticle?.title ?: "Silicon Valley Bank Crisis",
                 articles = selectedArticle?.let { listOf(it) } ?: emptyList(),
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() },
+                onMapClick = {
+                    navController.navigate("atlas")
+                }
             )
         }
 
         composable("atlas") {
             AtlasScreen(
-                onBackClick = { navController.popBackStack() }
+                article = selectedArticle,
+                onBackClick = { navController.popBackStack() },
+                onListClick = {
+                    navController.navigate("dashboard") {
+                        popUpTo("dashboard") { inclusive = true }
+                    }
+                }
             )
         }
         

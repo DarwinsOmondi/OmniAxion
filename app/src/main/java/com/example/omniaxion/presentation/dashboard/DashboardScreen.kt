@@ -7,8 +7,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Tune
+import androidx.compose.material.icons.filled.Public
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -60,45 +60,43 @@ fun DashboardContent(
     onRetry: () -> Unit,
     onFilterClick: () -> Unit
 ) {
-    if (state.error != null) {
-        ErrorScreen(
-            message = state.error,
-            onRetry = onRetry
-        )
-    } else {
-        Scaffold(
-            topBar = {
-                CenterAlignedTopAppBar(
-                    title = {
-                        Text(
-                            "OMNIAXIS",
-                            fontWeight = FontWeight.Bold,
-                            letterSpacing = 2.sp,
-                            fontSize = 20.sp
-                        )
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = {}) {
-                            Icon(Icons.Default.Menu, contentDescription = "Menu")
-                        }
-                    },
-                    actions = {
-                        TextButton(onClick = onMapClick) {
-                            Text("MAP", color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                        }
-                        IconButton(onClick = onFilterClick) {
-                            Icon(Icons.Default.Tune, contentDescription = "Filters")
-                        }
-                        IconButton(onClick = {}) {
-                            Icon(Icons.Default.Search, contentDescription = "Search")
-                        }
-                    },
-                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                        containerColor = Color.White
+    Scaffold(
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = {
+                    Text(
+                        "OMNIAXIS",
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 2.sp,
+                        fontSize = 20.sp
                     )
+                },
+                navigationIcon = {
+                    IconButton(onClick = {}) {
+                        Icon(Icons.Default.Menu, contentDescription = "Menu")
+                    }
+                },
+                actions = {
+                    IconButton(onClick = onMapClick) {
+                        Icon(Icons.Default.Public, contentDescription = "Map")
+                    }
+                    IconButton(onClick = onFilterClick) {
+                        Icon(Icons.Default.Tune, contentDescription = "Filters")
+                    }
+                },
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = Color.White
                 )
-            }
-        ) { padding ->
+            )
+        }
+    ) { padding ->
+        if (state.error != null) {
+            ErrorScreen(
+                message = state.error,
+                onRetry = onRetry,
+                modifier = Modifier.padding(padding)
+            )
+        } else {
             Column(
                 modifier = Modifier
                     .fillMaxSize()

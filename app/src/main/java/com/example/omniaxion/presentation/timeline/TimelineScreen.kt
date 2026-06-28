@@ -18,12 +18,16 @@ import com.example.omniaxion.domain.model.NewsArticle
 import com.example.omniaxion.ui.theme.OmniAxionTheme
 import com.example.omniaxion.ui.theme.OmniAxisColors
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Public
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TimelineScreen(
     title: String,
     articles: List<NewsArticle>,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onMapClick: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -49,8 +53,8 @@ fun TimelineScreen(
                     }
                 },
                 actions = {
-                    TextButton(onClick = {}) {
-                        Text("MAP", color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                    IconButton(onClick = onMapClick) {
+                        Icon(Icons.Default.Public, contentDescription = "Map")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White)
@@ -188,7 +192,8 @@ fun TimelineScreenPreview() {
         TimelineScreen(
             title = "Silicon Valley Bank Crisis",
             articles = mockArticles,
-            onBackClick = {}
+            onBackClick = {},
+            onMapClick = {}
         )
     }
 }
